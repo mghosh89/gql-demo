@@ -1,22 +1,18 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import { typeDefs } from './data/schema.js';
+import resolvers from './data/resolvers.js';
 
-const typeDefs = `
-  type Query {
-    hello: String
-  }
-`;
+const server = new ApolloServer({ 
+  typeDefs, 
+  resolvers });
 
-const resolvers = {
-  Query: {
-    hello: () => 'Hello World, GraphQL!',
-  },
-};
+async function startServer() {
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: 3030 },
+  });
 
-const server = new ApolloServer({ typeDefs, resolvers });
+  console.log(`🚀 Server ready at: ${url}`);
+}
 
-const { url } = await startStandaloneServer(server, {
-  listen: { port: 3030 },
-});
-
-console.log(`🚀 Server ready at: ${url}`);
+startServer();
