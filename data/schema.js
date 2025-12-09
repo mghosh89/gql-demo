@@ -5,31 +5,34 @@ export const typeDefs = `
         description: String!
         votedStatus: Boolean!
         metadata: [Meta]!
+        ageRating: Int
     }
     type Meta {
         theme: String!
         genre: String!
     }
     type Query {
-        stories: Story
-        getStory(id: ID): Story
+        stories: [Story!]!
+        getStory(id: ID!): Story
     }
     
-    # Now we ae creating mutations below:-
+    # Now we are creating mutations below:-
 
-    input storyInput {
+    input StoryInput {
         id: ID
         name: String!
         description: String!
         votedStatus: Boolean!
         metadata: [MetaInput]!
-        }
+        ageRating: Int
+    }
 
-        input MetaInput{
-            theme: String!
-            genre: String!
-        }
+    input MetaInput {
+        theme: String!
+        genre: String!
+    }
+
     type Mutation {
-        createStoryMut( input: storyInput!): Story
+        createStoryMut(input: StoryInput!): Story
     }
 `

@@ -1,30 +1,23 @@
-// Creating function to create a story object as  a mutation
-function createStory(id,{name,description,votedStatus,metadata}) {
-  return {
-    id,
-    name,
-    description,
-    votedStatus,
-    metadata,
-  };
-}
+import { Stories } from './dbConnector.js';
 
-// Creating database to store new stories/data
-const storiesDB = [];
 // A resolver is a function that's responsible for populating the data for a single field in your schema.
 const resolvers = {
   Query: {
-    getStory:(_,{id})=>{
-        return createStory(id,storiesDB[id]);
+    // fetch a single story by id
+    getStory: async (_, { id }) => {
+      const story = await Stories.findById(id);
+      return story;
+    },
+    // fetch all stories
+    stories: async () => {
+      return await Stories.find();
     },
   },
   Mutation: {
-    createStoryMut: (_, { input}) => {
-      let id = Math.floor(Math.random() * 1000); // Generating random id for story
-      // Or use crypto randomUUID for unique id
-      // let id = crypto.randomUUID();
-      storiesDB[id] = input;
-      return createStory(id, input);
+    // create a new story document
+    createStoryMut: async (_, { input }) => {
+      const created = await Stories.create(input);
+      return created;
     },
   },
 };
