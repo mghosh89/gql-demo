@@ -33,6 +33,8 @@ export const typeDefs = `
     }
 
     type Mutation {
-        createStoryMut(input: StoryInput!): Story
+        createStoryMut(input: StoryInput): Story
+        updateStoryMut(input: StoryInput): Story
+        deleteStoryMut(id: ID!): String
     }
 `

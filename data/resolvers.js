@@ -37,7 +37,23 @@ const resolvers = {
         await newStory.save();
         return newStory;
     },
+    // Update story mutation
+    updateStoryMut: async (_, { input }) => {
+      const updatedStory = await Stories.findOneAndUpdate(
+        { _id: input.id },
+        input,
+        { new: true } // if user enters any input that is not present in the schema it will be created automatically
+      );
+      return updatedStory;
+    },
+    // Delete story mutation
+    deleteStoryMut: async (_, { id }) => {
+      const deletedStory = await Stories.findByIdAndDelete(id);
+      return "Story deleted successfully";
+      //return deletedStory;
+    },
   },
+
 };
 
 export default resolvers;
