@@ -1,6 +1,6 @@
 # GQL First Project
 
-🚀 Live GraphQL API: https://gql-first-project.onrender.com/graphql
+Live GraphQL API: https://gql-first-project.onrender.com/graphql
 
 ## Tech Stack
 - Node.js
